@@ -2,6 +2,9 @@ package com.asdepique.allbikestest
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.asdepique.allbikestest.model.Station
+import com.asdepique.allbikestest.repositories.StationRepository
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -9,11 +12,15 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
 
+    private val disposables = CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
@@ -21,6 +28,27 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
                 .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        fetchStations()
+
+    }
+
+    fun fetchStations() {
+        disposables.add(
+            StationRepository.createAllStationsCall()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    { apiResponse -> onMoviesCallSuccess(apiResponse) },
+                    { throwable -> onMoviesCallError(throwable) }
+                ))
+    }
+
+    private fun onMoviesCallSuccess(stations: List<Station>?) {
+        Log.d("MapsActivity", stations?.toString() ?: "NONE")
+    }
+
+    private fun onMoviesCallError(throwable: Throwable) {
+        Log.e("MapsActivity", "Error", throwable)
     }
 
     /**
