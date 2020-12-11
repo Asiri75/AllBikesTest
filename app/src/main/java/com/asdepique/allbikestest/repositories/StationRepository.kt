@@ -1,7 +1,6 @@
 package com.asdepique.allbikestest.repositories
 
 import com.asdepique.allbikestest.model.Station
-import com.google.android.gms.maps.model.LatLng
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
 import okhttp3.OkHttpClient
