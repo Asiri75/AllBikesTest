@@ -11,14 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AllBikesTest">
+        <activity android:name=".ui.details.StationDetailsActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".ui.MapsActivity"
-            android:label="@string/title_activity_maps">
+            android:name=".ui.map.MapsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,4 +1,4 @@
-package com.asdepique.allbikestest.ui
+package com.asdepique.allbikestest.ui.map
 
 import com.asdepique.allbikestest.model.Station
 

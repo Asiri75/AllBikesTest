@@ -1,7 +1,18 @@
 <resources>
     <string name="app_name">All Bikes Test</string>
+    <string name="station_details_title">Détails de la station</string>
     <string name="title_activity_maps">Map</string>
     <string name="toast_location_denied">Vous avez refusé la localisation</string>
     <string name="toast_location_never_ask">Nous avons besoin de votre autorisation pour vous localiser</string>
     <string name="stations_result_error">Aucune station trouvée</string>
+
+    <string name="station_details_info_title">Informations</string>
+    <string name="station_details_address_title">Adresse</string>
+    <string name="station_details_open">Station ouverte</string>
+    <string name="station_details_banking">Terminal de paiement</string>
+
+
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="station_details_floating">Itinéraire</string>
 </resources>

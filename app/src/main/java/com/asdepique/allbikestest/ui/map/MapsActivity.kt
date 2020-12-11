@@ -1,19 +1,24 @@
-package com.asdepique.allbikestest.ui
+package com.asdepique.allbikestest.ui.map
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.asdepique.allbikestest.R
 import com.asdepique.allbikestest.model.Station
+import com.asdepique.allbikestest.ui.details.StationDetailsActivity
+import com.asdepique.allbikestest.ui.details.StationDetailsActivity.Companion.STATION_KEY
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.OnNeverAskAgain
@@ -22,10 +27,11 @@ import permissions.dispatcher.RuntimePermissions
 
 
 @RuntimePermissions
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapsContract {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapsContract,
+    GoogleMap.OnMarkerClickListener {
 
     companion object {
-        private const val DEFAULT_ZOOM = 13f
+        private const val DEFAULT_ZOOM = 11f
         private const val NO_CURRENT_LOCATION_ZOOM = 5f
         private val FRANCE_LOCATION = LatLng(46.839130, 2.443642)
     }
@@ -48,6 +54,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapsContract {
     override fun onMapReady(googleMap: GoogleMap) {
         gMap = googleMap
         presenter.getAllStations()
+        gMap?.setOnMarkerClickListener(this)
         zoomToCurrentLocationWithPermissionCheck()
     }
 
@@ -83,6 +90,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapsContract {
 
         }
     }
+
 
     @OnPermissionDenied(Manifest.permission.ACCESS_FINE_LOCATION)
     fun showDeniedForLocationPermission() {
@@ -121,7 +129,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapsContract {
 
     private fun fillTheMap(stations: List<Station>) {
         stations.forEach {
-            gMap?.addMarker(MarkerOptions().position(it.position))?.apply {
+            gMap?.addMarker(
+                MarkerOptions()
+                    .position(it.getPosition())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.bike_marker))
+            )?.apply {
                 tag = it
             }
         }
@@ -134,5 +146,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, MapsContract {
 
     override fun onStationsRequestError() {
         Toast.makeText(this, getString(R.string.stations_result_error), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onMarkerClick(marker: Marker?): Boolean {
+        return (marker?.tag as? Station)?.let {
+            startActivity(
+                Intent(
+                    this,
+                    StationDetailsActivity::class.java
+                ).apply {
+                    putExtra(STATION_KEY, it)
+                }
+            )
+            true
+        } ?: false
     }
 }

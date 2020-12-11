@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="xxtra_small">2dp</dimen>
+    <dimen name="xtra_small">4dp</dimen>
+    <dimen name="small">6dp</dimen>
+    <dimen name="medium">10dp</dimen>
+    <dimen name="large">16dp</dimen>
+    <dimen name="xtra_large">20dp</dimen>
+    <dimen name="xxtra_large">40dp</dimen>
+
+
+    <dimen name="font_small">14sp</dimen>
+    <dimen name="font_regular">16sp</dimen>
+    <dimen name="font_title">18sp</dimen>
+    <dimen name="font_big_title">22sp</dimen>
+</resources>

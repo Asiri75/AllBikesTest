@@ -25,10 +25,8 @@ object StationRepository {
                 contractName = jsonObject.get("contractName").asString,
                 name = jsonObject.get("name").asString,
                 address = jsonObject.get("address").asString,
-                position = LatLng(
-                    jsonObject.get("position").asJsonObject.get("latitude").asDouble,
-                    jsonObject.get("position").asJsonObject.get("longitude").asDouble
-                ),
+                latitude = jsonObject.get("position").asJsonObject.get("latitude").asDouble,
+                longitude = jsonObject.get("position").asJsonObject.get("longitude").asDouble,
                 banking = jsonObject.get("banking").asBoolean,
                 status = jsonObject.get("status").asString,
                 lastUpdate = jsonObject.get("lastUpdate").asString,
