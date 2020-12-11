@@ -6,12 +6,12 @@ Elle a pour objectif d'afficher sur une carte les stations de vélos en libre-se
 
 Pour tester le projet, il est necessaire d'ajouter les clés d'API de Google et JCDeacaux.
 Ces dernières ont été cachées à des fins de sécurité.
-# Google API
+### Google API
 Mettre la clé d'API Google fournie dans le fichier app/src/debug/res/values/google_maps_api.xml
-# JCDecaux API
+### JCDecaux API
 Mettre la clé d'API JCDecaux fournie dans le fichier gradle.properties
 
-## Description de l'application
+# Description de l'application
 ## Analyse fonctionnelle
 
 ### Comportement de l'application
